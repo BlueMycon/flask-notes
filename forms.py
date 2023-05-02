@@ -1,4 +1,4 @@
-from wtforms import StringField, TextAreaField, IntegerField
+from wtforms import StringField, PasswordField
 from flask_wtf import FlaskForm
 
 from wtforms.validators import InputRequired, Length, Email
@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
         "Username",
         validators=[InputRequired(),Length(max=20)])
 
-    password = StringField(
+    password = PasswordField(
         "Password",
         validators=[InputRequired(),Length(max=100)])
 
@@ -32,6 +32,9 @@ class LoginForm(FlaskForm):
         "Username",
         validators=[InputRequired(),Length(max=20)])
 
-    password = StringField(
+    password = PasswordField(
         "Password",
         validators=[InputRequired(),Length(max=100)])
+
+class CSRFProtectForm(FlaskForm):
+    """Form just for CSRF Protection"""
