@@ -15,9 +15,9 @@
   {% for note in notes %}
   <li>
     <a href="/notes/{{note.id}}/update">{{note.title}}</a>
-    <form action="/notes/{{note-id}}/delete/" method="POST"">
+    <form action="/notes/{{note.id}}/delete" method="POST">
       {{form.hidden_tag()}}
-      <button type="submit" class="btn btn-primary">Delete</button>
+      <button type="submit" class="btn btn-primary">Delete Note</button>
     </form>
   </li>
   {% endfor %}

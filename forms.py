@@ -44,10 +44,10 @@ class CSRFProtectForm(FlaskForm):
 class NotesForm(FlaskForm):
     """form for note creation"""
     title = StringField(
-        "Title"
+        "Title",
         validators=[InputRequired(),Length(max=100)])
 
     content = StringField(
-        "Content"
+        "Content",
         validators=[InputRequired()])
 
