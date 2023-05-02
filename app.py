@@ -1,14 +1,10 @@
-from flask import Flask, session, redirect, render_template, flash
+from flask import Flask, session, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.exceptions import Unauthorized
-from werkzeug.wrappers import Response
-
 
 from models import db, connect_db, User, Note
-
 from forms import RegistrationForm, LoginForm, CSRFProtectForm, NotesForm
 
-# from forms import NewSongForPlaylistForm, AddSongForm, AddPlaylistForm
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///notes_app"
@@ -36,6 +32,8 @@ def show_homepage():
 
     return redirect("/register")
 
+##############################################################################
+# Auth Routes
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
@@ -82,6 +80,9 @@ def login_user():
     return render_template('login.html', form=form)
 
 
+##############################################################################
+# User routes
+
 @app.get('/users/<username>')
 def display_user(username):
     """ displays user page """
@@ -118,6 +119,9 @@ def delete_user(username):
     db.session.commit()
 
     return redirect("/")
+
+##############################################################################
+# Note routes
 
 @app.route("/users/<username>/notes/add", methods=["GET", "POST"])
 def add_note(username):
