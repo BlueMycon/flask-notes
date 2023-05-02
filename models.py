@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
 def connect_db(app):
     """Connect to database."""
 
@@ -39,4 +38,3 @@ class User(db.Model):
         db.String(30),
         nullable=False,
     )
-    
