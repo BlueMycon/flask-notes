@@ -3,7 +3,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, User
 
-from forms import RegistrationForm, LoginForm, CSRFProtectForm
+from forms import RegistrationForm, LoginForm, CSRFProtectForm, NotesForm
 
 # from forms import NewSongForPlaylistForm, AddSongForm, AddPlaylistForm
 
@@ -89,8 +89,9 @@ def display_user(username):
 
     form = CSRFProtectForm()
     user = User.query.get_or_404(username)
+    notes = Note.query.filter(username == user.username)
 
-    return render_template("user_page.html", user=user, form=form)
+    return render_template("user_page.html", user=user, form=form, notes=notes)
 
 @app.post("/logout")
 def logout_user():
@@ -103,3 +104,21 @@ def logout_user():
         session.pop("user_id", None)
 
     return redirect("/")
+
+@app.post("/users/<username>/delete")
+def delete_user(username):
+    """deletes the provided user and all their notes. redirects to /"""
+
+    user = User.query.get_or_404(username)
+    notes = Note.query.filter(username == user.username)
+
+    for note in notes:
+        db.session.delete(note)
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect("/")
+
+@app.get("/users/<username>/notes/add")
+def add_note
