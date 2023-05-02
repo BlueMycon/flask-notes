@@ -24,3 +24,14 @@ class RegistrationForm(FlaskForm):
     last_name = StringField(
         "Last Name",
         validators=[InputRequired(),Length(max=30)])
+
+
+class LoginForm(FlaskForm):
+    """Login form."""
+    username = StringField(
+        "Username",
+        validators=[InputRequired(),Length(max=20)])
+
+    password = StringField(
+        "Password",
+        validators=[InputRequired(),Length(max=100)])
